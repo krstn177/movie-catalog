@@ -1,0 +1,50 @@
+header{
+    height: 70vh;
+    background-image: url(../../../../public/images/footer-bg.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 1.8rem 20%;
+}
+nav{
+    display: flex;
+    align-items: center;
+}
+.page-title{
+    font-size: 1.3rem;
+    font-weight: 900;
+}
+.explore{ 
+    all: unset;  
+    text-decoration: none;
+    background-color: #212529;
+    border: 2px solid #212529;
+    border-radius: 20px;
+    padding: 5px 30px;
+    color: white;
+}
+.explore:hover{
+    cursor: pointer;   
+    background-color: white;
+    color: #212529;
+}
+.hero{
+    margin: 160px 0;
+}
+.hero h1{
+    font-size: 2.8rem;
+    font-weight: 900;
+    margin-bottom: 0;
+}
+.subtitle{
+    margin-top: 5px;
+    font-size: 1.5rem;
+    margin-bottom: 35px;
+}
+.hero .desc{
+    margin-top: 0;
+    margin-bottom: 2px;
+}
+.hero .explore{
+    margin-top: 35px;
+}

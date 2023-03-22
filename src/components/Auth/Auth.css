@@ -1,0 +1,36 @@
+.currentForm{
+    width: 40%;
+    margin: 0 auto;
+    color: #e1b516;
+    text-align: center;
+    padding: 3rem;
+    border-radius: 10px;
+}
+.title{
+    font-weight: 800;
+    color: #e1b516;
+}
+.formContainer{
+    background-color: black;  
+    height: 100vh;
+    display: flex;
+    align-items: center;
+}
+.submitBtn{
+    all: unset;
+    font-size: 1.8rem;
+    font-weight: 700;
+    background-color: #e1b516;
+    color: black;
+    border-radius: 10px;  
+    padding: 4px 20px;
+}
+.submitBtn:hover{
+    background-color: black;
+    color: #e1b516;
+}
+@media(max-width:990px){
+    .currentForm{
+        width: 90%
+    }
+}

@@ -1,0 +1,37 @@
+.createForm{
+    width: 40%;
+    margin: 200px auto;
+    color: #e1b516;
+    text-align: center;
+    padding: 3rem;
+    border-radius: 10px;
+    background-color: #212529;
+}
+.createTitle{
+    font-weight: 800;
+    color: #e1b516;
+    margin-bottom: 50px;
+}
+.createFormContainer{
+    background-color: black;  
+    display: flex;
+    align-items: center;
+}
+.createSubmitBtn{
+    all: unset;
+    font-size: 1.8rem;
+    font-weight: 700;
+    background-color: #e1b516;
+    color: black;
+    border-radius: 10px;  
+    padding: 4px 20px;
+}
+.createSubmitBtn:hover{
+    background-color: black;
+    color: #e1b516;
+}
+@media(max-width:990px){
+    .createForm{
+        width: 90%
+    }
+}

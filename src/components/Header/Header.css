@@ -1,0 +1,26 @@
+.nav-bar{
+    color: white;
+}
+.navLink, .navBrand{
+    all: unset;
+    text-decoration: none;
+    font-weight: 700;
+}
+.navLink{
+   color: white;
+   font-size: 1.5rem;
+}    
+.navLink:hover{
+    color: #e1b516;
+}
+.navBrand{  
+    font-size: 1.8rem;
+    background-color: #e1b516;
+    color: black;
+    border-radius: 5px;
+    margin-right: 20px;
+    padding: 0 5px;
+}
+.navBrand:hover{
+    color: white;
+}
