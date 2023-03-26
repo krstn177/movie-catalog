@@ -18,6 +18,8 @@ import { MovieCatalog } from './components/MovieCatalog/MovieCatalog';
 import { MovieDetails } from './components/MovieDetails/MovieDetails';
 import { CreateMovie } from './components/CreateMovie/CreateMovie';
 import { Logout } from './components/Auth/Logout';
+import { EditMovie } from './components/EditMovie/EditMovie';
+import { UserMovies } from './components/UserMovies/UserMovies';
 
 function App() {
   const navigate = useNavigate();
@@ -25,27 +27,29 @@ function App() {
   const [auth, setAuth] = useState({});
   const [topMovies, setTopMovies] = useState([]);
 
+
   const movieService = movieServiceFactory(auth.accessToken);
   const authService = authServiceFactory(auth.accessToken);
 
 
   useEffect(()=>{
-    movieService.getTop().then(result => {
+      movieService.getTop().then(result => {
         setTopMovies(result);
+      })
       movieService.getAll()
             .then(result => {
                 setMovies(result);
-            });
-      })
-  }, []);
+      });
+    }, []);
+       
 
   const onCreateMovieSubmit = async (data) => {
     const newMovie = {...data};
     newMovie.TrailerUrl = VideoIdSelect(data.TrailerUrl);
        
-    const createMovie = await movieService.create(newMovie);
-
-    setMovies(state => [...state, createMovie]);
+    const createdMovie = await movieService.create(newMovie);
+    console.log(createdMovie);
+    setMovies(state => [...state, createdMovie]);
 
     navigate('/catalog');
   };
@@ -85,6 +89,16 @@ function App() {
     setAuth({});
   };
 
+  const onMovieEditSubmit = async (edited) => {
+    const newValue = {...edited};
+    newValue.TrailerUrl = VideoIdSelect(edited.TrailerUrl);
+    const result = await movieService.edit(newValue._id, newValue);
+
+    setMovies(state => state.map(x => x._id === newValue._id ? result : x))
+
+    navigate(`/catalog/${newValue._id}`);
+  }
+
   const contextValues = {
     onLoginSubmit,
     onRegisterSubmit,
@@ -110,6 +124,9 @@ function App() {
             <Route path='/create' element={<CreateMovie onCreateMovieSubmit={onCreateMovieSubmit} />} />
             <Route path='/catalog' element={<MovieCatalog movies={movies} />} />
             <Route path='/catalog/:movieId' element={<MovieDetails />} />
+            <Route path='/catalog/:movieId/edit' element={<EditMovie onMovieEditSubmit={onMovieEditSubmit} />} />
+            <Route path='/myMovies' element={<UserMovies />} />
+
           </Routes>
         </main>               
         <Footer />     

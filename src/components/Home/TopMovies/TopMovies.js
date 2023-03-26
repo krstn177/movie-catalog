@@ -13,33 +13,42 @@ export const TopMovies = ({
   };
 
   return (
-    <>
-      <h1 className='title bg-dark pt-4'>Latest Movies</h1>
-      <Carousel className="bg-dark pt-4" activeIndex={index} onSelect={handleSelect}>
-        {movies.map(x => {
-            const movie = {};
-            movie._id = x._id;
-            movie.title = x.title;
-            movie.subTitle = x.subTitle;
-            movie.ImageUrl = x.ImageUrl;
-            return(
-              <Carousel.Item className="cardWithOverlay" key={x._id} movie={movie}>
-                <div className="landingImg-container">
-                  <img
-                  className="d-block w-100 landingImg"
-                  src={movie.ImageUrl}
-                  alt="First slide"
-                  />
-                </div>
-                <Carousel.Caption className="carouselCaption">
-                    <h3>{movie.title}</h3>
-                    <p>{movie.subTitle}</p>
-                    <Link to={`catalog/${movie._id}`} className="detailsBtn">View</Link>
-                </Carousel.Caption>
-              </Carousel.Item>    
-            ) 
-          })}
-      </Carousel>
+    <>{movies.length === 0 && 
+        <div className="sectionContainer">
+            <h1 className='title sectionTitle'>See the latest movies fresh from the cinemas</h1>
+            <Link to={`/register`} className="sectionBtn">Register Now</Link>
+        </div>}
+      {
+        movies.length !== 0 &&
+        <>
+          <h1 className='title bg-dark pt-4'>Latest Movies</h1>
+          <Carousel className="bg-dark pt-4" activeIndex={index} onSelect={handleSelect}>
+            {movies.map(x => {
+              const movie = {};
+              movie._id = x._id;
+              movie.title = x.title;
+              movie.subTitle = x.subTitle;
+              movie.ImageUrl = x.ImageUrl;
+              return(
+                <Carousel.Item className="cardWithOverlay" key={x._id} movie={movie}>
+                    <div className="landingImg-container">
+                      <img
+                      className="d-block w-100 landingImg"
+                      src={movie.ImageUrl}
+                      alt="First slide"
+                      />
+                    </div>
+                    <Carousel.Caption className="carouselCaption">
+                        <h3>{movie.title}</h3>
+                        <p>{movie.subTitle}</p>
+                        <Link to={`catalog/${movie._id}`} className="detailsBtn">View</Link>
+                    </Carousel.Caption>
+                  </Carousel.Item>    
+                ) 
+              })}
+          </Carousel>
+        </>      
+      }  
     </>
   );
 }

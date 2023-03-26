@@ -23,9 +23,14 @@ export const Header = () => {
               <Link className='navLink' to="/catalog">Catalog</Link>             
             </Nav.Link>
             {isAuthenticated &&(
-              <Nav.Link href="#">
-                <Link className='navLink' to="/create">Register a movie</Link>             
-              </Nav.Link>
+              <>
+                <Nav.Link href="#">
+                  <Link className='navLink' to="/create">Register a movie</Link>             
+                </Nav.Link>
+                <Nav.Link href="#">
+                  <Link className='navLink' to="/myMovies">My movies</Link>             
+                </Nav.Link>
+              </>
             )}
           </Nav>
           <Nav>

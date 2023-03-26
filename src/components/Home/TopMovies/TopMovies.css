@@ -1,3 +1,36 @@
+.sectionContainer{
+    height: 80vh;
+    background-image: url(../../../../public/images/section.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 30px;
+}
+.sectionTitle{
+    margin: 0 auto;
+}
+.sectionBtn{
+    all: unset;  
+    text-decoration: none;
+    background-color: #212529;
+    border: 2px solid #212529;
+    border-radius: 20px;
+    padding: 5px 30px;
+    color: white;
+    font-weight: 700;
+    font-size: 1.5rem;
+    width: 250px;
+    text-align: center;
+    margin: 0 auto;
+}
+.sectionBtn:hover{
+    cursor: pointer;   
+    background-color: white;
+    color: #212529;
+}
 .title{   
     text-align: center;
     color: white;

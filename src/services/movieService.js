@@ -1,6 +1,6 @@
 import { requestFactory } from './requester';
 
-const baseUrl = 'http://localhost:3030/jsonstore/movies';
+const baseUrl = 'http://localhost:3030/data/movies';
 
 export const movieServiceFactory = (token) => {
     const request = requestFactory(token);
@@ -8,6 +8,14 @@ export const movieServiceFactory = (token) => {
     const getAll = async () => {
         const result = await request.get(baseUrl);
         const movies = Object.values(result);
+    
+        return movies;
+    };
+
+    const getUserMovies = async (userId) => {
+        const result = await request.get(`${baseUrl}/?where=_ownerId${encodeURIComponent('='+`"${userId}"`)}`);
+        const movies = Object.values(result);
+        console.log(movies);
     
         return movies;
     };
@@ -33,8 +41,20 @@ export const movieServiceFactory = (token) => {
         return result;
     };
     
-    const addComment = async (movieId, data) => {
-        const result = await request.post(`${baseUrl}/${movieId}/comments`, data);
+    const addReview= async (movieId, data) => {
+        console.log(movieId);
+        console.log(data);
+        const movie = await getOne(movieId);
+        if (movie.reviews) {
+            for (const review of movie.reviews) {
+                if (review._ownerId === data._ownerId) {
+                    console.log("Cannot review twice");
+                    return;
+                }
+            }
+        }
+
+        const result = await request.post(`${baseUrl}/${movieId}/reviews`, data);
     
         return result;
     };
@@ -47,10 +67,11 @@ export const movieServiceFactory = (token) => {
     return {
         getAll,
         getOne,
+        getUserMovies,
         getTop,
         create,
         edit,
-        addComment,
+        addReview,
         delete: deleteMovie,
     };
 }

@@ -15,9 +15,14 @@ export const useForm = (initialValues, onSubmitHandler) => {
 
     const changeValues = (newValues) => {
         // TODO: Validate newValues shape (like initialValues)
-        
-        setValues(newValues);
+        const result = { 
+            ...newValues,                  
+            TrailerUrl: `https://www.youtube.com/watch?v=${newValues.TrailerUrl}`,       
+        }
+
+        setValues(result);
     };
+    
 
     return {
         values,

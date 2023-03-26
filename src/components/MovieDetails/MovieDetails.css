@@ -80,6 +80,72 @@
     text-align: center;
     background-color: black;  
 }
+.movie-actions{
+    display: flex;
+    justify-content: space-around;
+    margin: 0 auto;
+}
+.button{
+    all: unset;  
+    text-decoration: none;
+    background-color: #212529;
+    border: 2px solid #212529;
+    border-radius: 20px;
+    padding: 5px 30px;
+    color: #e1b516;
+    font-weight: 700;
+}
+.button:hover{
+    cursor: pointer;   
+    background-color: #e1b516;
+    color: black;
+}
+.create-review{
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+
+}
+.create-review .button{
+    border: 1px solid white;
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+}
+.addReview{
+    font-size: 4rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+    margin-top: 20px;
+}
+.formLabel{
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #e1b516;
+}
+.reviews{
+    list-style-type: none;
+    margin: 30px auto;
+    width: 50%;
+}
+.review{
+    border: 1px solid #e1b516;
+    color: #e1b516;
+    background-color: black;
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 30px;
+}
+.review-label{
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+.review-content{
+    font-size: 2rem;
+    font-weight: 700;
+    margin-left: 30px;
+}
+
 @media (max-width:600px){
     .image-container{
         width: 100%;
