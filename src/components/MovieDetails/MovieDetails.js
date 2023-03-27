@@ -14,7 +14,7 @@ import { useService } from '../../hooks/useService';
 import { AuthContext } from '../../contexts/AuthContext';
 
 export const MovieDetails = () => {
-    const { userId, username } = useContext(AuthContext);
+    const { userId, username, isAuthenticated } = useContext(AuthContext);
     const { movieId } = useParams();
     
     const [movie, setMovie] = useState({});
@@ -122,7 +122,7 @@ export const MovieDetails = () => {
             <div className='clip-container'>               
                 <YoutubeEmbed embedId={movie.TrailerUrl} />
             </div>
-            {!hasReviewed && 
+            {(!hasReviewed && isAuthenticated) &&
                 <article className="create-review">
                     <label className="addReview">Add a review:</label>
                     <Form onSubmit={onSubmit}>
