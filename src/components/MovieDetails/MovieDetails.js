@@ -16,36 +16,41 @@ import { AuthContext } from '../../contexts/AuthContext';
 export const MovieDetails = () => {
     const { userId, username } = useContext(AuthContext);
     const { movieId } = useParams();
+    
     const [movie, setMovie] = useState({});
-    const movieService = useService(movieServiceFactory);
     const [reviews, setReviews] = useState([]);
+    const [hasReviewed, setHasReviewed] = useState(false);
+
+    const movieService = useService(movieServiceFactory);
     const reviewService = useService(reviewServiceFactory);
+
     const navigate = useNavigate();
 
-
+    useEffect(() => {
+        Promise.all([
+            movieService.getOne(movieId),
+            reviewService.getAll(movieId)
+        ])
+            .then(([movieData, reviewData]) => {
+                setMovie(movieData);
+                setReviews(reviewData);
+            });          
+        }, [movieId]);
 
     useEffect(() => {
-        movieService.getOne(movieId)
-            .then(result => {
-                setMovie(result);
-            });
-        reviewService.getAll(movieId)
-                .then(result => {
-                    setReviews(result);
-                });
-    }, [movieId]);
-
-    const isOwner = movie._ownerId === userId;
-
-    const onReviewSubmit = async (data) => {
         if (reviews.length > 0) {
             for (const review of reviews) {
-                if (review._ownerId == userId) {
+                if (review._ownerId === userId) {
                     console.log("Cannot review twice");
-                    return;
+                    setHasReviewed(true);                           
                 }
             }
         }
+    }, [reviews, userId]);
+
+    const isOwner = movie._ownerId === userId;
+    
+    const onReviewSubmit = async (data) => {
 
         const timeElapsed = Date.now();
         const today = new Date(timeElapsed);
@@ -59,7 +64,7 @@ export const MovieDetails = () => {
             createdDate: today.toLocaleDateString()    
         });
 
-        setReviews(state => [...state, result])
+        setReviews(state => [...state, result]);
     };
 
     const { values, changeHandler, onSubmit } = useForm({
@@ -117,39 +122,40 @@ export const MovieDetails = () => {
             <div className='clip-container'>               
                 <YoutubeEmbed embedId={movie.TrailerUrl} />
             </div>
-                               
-            <article className="create-review">
-                <label className="addReview">Add a review:</label>
-                <Form onSubmit={onSubmit}>
-                    <Form.Group className="mb-3" controlId="Rating">
-                        <Form.Label className="formLabel">Rating:</Form.Label>
-                        <Form.Select name="rating" id="rating" className="bg-dark" style={{textAlign: 'center', color: '#e1b516'}} 
-                            value={values.rating} 
-                            onChange={changeHandler}
-                        >
-                            <option value="Excellent">Excellent</option>
-                            <option value="Very good">Very good</option>
-                            <option value="Good">Good</option>
-                            <option value="Average">Average</option>
-                            <option value="Mediocre">Mediocre</option>
-                            <option value="Bad">Bad</option>
-                            <option value="Very Bad">Very Bad</option>
-                        </Form.Select>   
-                    </Form.Group>
-                    
-                    <Form.Group className="mb-3" controlId="Description">
-                        <Form.Label className="formLabel">Description</Form.Label>
-                        <Form.Control name="description" placeholder="......" className="bg-dark" style={{textAlign: 'center', color: '#e1b516'}} as="textarea" rows={4} 
-                            value={values.description}
-                            onChange={changeHandler}
-                        />         
-                    </Form.Group>
+            {!hasReviewed && 
+                <article className="create-review">
+                    <label className="addReview">Add a review:</label>
+                    <Form onSubmit={onSubmit}>
+                        <Form.Group className="mb-3" controlId="Rating">
+                            <Form.Label className="formLabel">Rating:</Form.Label>
+                            <Form.Select name="rating" id="rating" className="bg-dark" style={{textAlign: 'center', color: '#e1b516'}} 
+                                value={values.rating} 
+                                onChange={changeHandler}
+                            >
+                                <option value="Excellent">Excellent</option>
+                                <option value="Very good">Very good</option>
+                                <option value="Good">Good</option>
+                                <option value="Average">Average</option>
+                                <option value="Mediocre">Mediocre</option>
+                                <option value="Bad">Bad</option>
+                                <option value="Very Bad">Very Bad</option>
+                            </Form.Select>   
+                        </Form.Group>
+                        
+                        <Form.Group className="mb-3" controlId="Description">
+                            <Form.Label className="formLabel">Description</Form.Label>
+                            <Form.Control name="description" placeholder="......" className="bg-dark" style={{textAlign: 'center', color: '#e1b516'}} as="textarea" rows={4} 
+                                value={values.description}
+                                onChange={changeHandler}
+                            />         
+                        </Form.Group>
 
-                    <button className="button" type="submit">
-                        Submit
-                    </button>
-                </Form>
-            </article>
+                        <button className="button" type="submit">
+                            Submit
+                        </button>
+                    </Form>
+                </article>
+            }                   
 
             <div className="details-reviews">
                 <h2 className="movie-title">Reviews:</h2>

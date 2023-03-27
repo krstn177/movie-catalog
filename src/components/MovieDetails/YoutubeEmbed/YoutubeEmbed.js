@@ -5,7 +5,7 @@ export const YoutubeEmbed = ({embedId}) => (
     <iframe
       width="600"
       height="320"
-      src={`https://www.youtube.com/embed/${embedId}`}      
+      src={`https://www.youtube-nocookie.com/embed/${embedId}`}      
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
       allowFullScreen
       title="Embedded youtube"

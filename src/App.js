@@ -2,10 +2,9 @@ import { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate} from 'react-router-dom';
 
 import { VideoIdSelect } from './utils/VideoIdSelect';
+import { AuthProvider } from './contexts/AuthContext';
 
 import { movieServiceFactory } from './services/movieService';
-import { authServiceFactory } from './services/authService';
-import { AuthContext } from './contexts/AuthContext';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -24,13 +23,8 @@ import { UserMovies } from './components/UserMovies/UserMovies';
 function App() {
   const navigate = useNavigate();
   const [movies, setMovies] = useState([]);
-  const [auth, setAuth] = useState({});
   const [topMovies, setTopMovies] = useState([]);
-
-
-  const movieService = movieServiceFactory(auth.accessToken);
-  const authService = authServiceFactory(auth.accessToken);
-
+  const movieService = movieServiceFactory(); //auth.accessToken
 
   useEffect(()=>{
       movieService.getTop().then(result => {
@@ -54,41 +48,6 @@ function App() {
     navigate('/catalog');
   };
 
-  const onLoginSubmit = async (data) => {
-    try {
-        const result = await authService.login(data);
-
-        setAuth(result);
-
-        navigate('/catalog');
-    } catch (error) {
-        console.log('There is a problem');
-    }
-  };
-
-  const onRegisterSubmit = async (data) => {
-    const { confirmPassword, ...registerData } = data;
-    if (confirmPassword !== registerData.password) {
-      return;
-    }
-
-    try{
-      const result = await authService.register(registerData);
-
-      setAuth(result);
-
-      navigate('/catalog');
-    } catch(errror){
-      console.log('There is a problem');
-    }
-  }
-
-  const onLogout = async () => {
-    await authService.logout();
-
-    setAuth({});
-  };
-
   const onMovieEditSubmit = async (edited) => {
     const newValue = {...edited};
     newValue.TrailerUrl = VideoIdSelect(edited.TrailerUrl);
@@ -98,20 +57,10 @@ function App() {
 
     navigate(`/catalog/${newValue._id}`);
   }
-
-  const contextValues = {
-    onLoginSubmit,
-    onRegisterSubmit,
-    onLogout,
-    userId: auth._id,
-    token: auth.accessToken,
-    userEmail: auth.email,
-    username: auth.username,
-    isAuthenticated: !!auth.accessToken
-  };
+  
 
   return (
-    <AuthContext.Provider value={contextValues}>
+    <AuthProvider>
       <div>
         <Header />
 
@@ -126,12 +75,11 @@ function App() {
             <Route path='/catalog/:movieId' element={<MovieDetails />} />
             <Route path='/catalog/:movieId/edit' element={<EditMovie onMovieEditSubmit={onMovieEditSubmit} />} />
             <Route path='/myMovies' element={<UserMovies />} />
-
           </Routes>
         </main>               
         <Footer />     
       </div>
-    </AuthContext.Provider>
+    </AuthProvider>
   );
 }
 
