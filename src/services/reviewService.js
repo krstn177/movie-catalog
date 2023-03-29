@@ -8,10 +8,18 @@ export const reviewServiceFactory = (token) =>{
     const getAll = async (movieId) => {
         const query = encodeURIComponent(`movieId="${movieId}"`);
     
-        const result = await request.get(`${baseUrl}?where=${query}`);
-        const reviews = Object.values(result);
+        console.log('before disaster');
+        try{
+            const result = await request.get(`${baseUrl}?where=${query}`);
+            console.log(result);
     
-        return reviews;
+            const reviews = Object.values(result);
+        
+            return reviews;
+        } catch(err){
+            console.log(err);
+            return [];
+        }
     };
     
     const create = async (data) => {

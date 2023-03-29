@@ -7,13 +7,13 @@ import RangeSlider from 'react-bootstrap-range-slider';
 
 
 
+import { useMovieContext } from "../../contexts/MovieContext";
 import { useForm } from "../../hooks/useForm";
 import { useService } from "../../hooks/useService";
 import { movieServiceFactory } from "../../services/movieService";
 
-export const EditMovie = ({
-    onMovieEditSubmit
-}) => {
+export const EditMovie = () => {
+    const { onMovieEditSubmit } = useMovieContext();
     const { movieId } = useParams();
     const movieService = useService(movieServiceFactory);
     const { values, changeHandler, onSubmit, changeValues } = useForm({

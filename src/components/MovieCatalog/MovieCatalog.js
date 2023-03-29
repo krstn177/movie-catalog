@@ -1,10 +1,12 @@
 import Row from 'react-bootstrap/Row';
+import { useMovieContext } from '../../contexts/MovieContext';
 import './MovieCatalog.css';
 import { CatalogCard } from '../CatalogCard/CatalogCard'; 
 
-export const MovieCatalog = ({
-    movies
-}) => {
+export const MovieCatalog = () => {
+
+    const { movies } = useMovieContext();
+
     return (
         <div className="Rows bg-dark" style={{minHeight: "86vh"}}>
             {

@@ -2,10 +2,10 @@ import Carousel from 'react-bootstrap/Carousel';
 import './TopMovies.css';
 import { useState } from 'react';
 import { Link } from "react-router-dom";
+import { useMovieContext } from '../../../contexts/MovieContext';
 
-export const TopMovies = ({
-  movies
-}) => {
+export const TopMovies = () => {
+  const { topMovies } = useMovieContext();
   const [index, setIndex] = useState(0);
 
   const handleSelect = (selectedIndex, e) => {
@@ -13,17 +13,17 @@ export const TopMovies = ({
   };
 
   return (
-    <>{movies.length === 0 && 
+    <>{topMovies.length === 0 && 
         <div className="sectionContainer">
             <h1 className='title sectionTitle'>See the latest movies fresh from the cinemas</h1>
             <Link to={`/register`} className="sectionBtn">Register Now</Link>
         </div>}
       {
-        movies.length !== 0 &&
+        topMovies.length !== 0 &&
         <>
           <h1 className='title bg-dark pt-4'>Latest Movies</h1>
           <Carousel className="bg-dark pt-4" activeIndex={index} onSelect={handleSelect}>
-            {movies.map(x => {
+            {topMovies.map(x => {
               const movie = {};
               movie._id = x._id;
               movie.title = x.title;

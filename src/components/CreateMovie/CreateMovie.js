@@ -3,12 +3,12 @@ import styles from './CreateMovie.module.css';
 import RangeSlider from 'react-bootstrap-range-slider';
 
 import { useForm } from '../../hooks/useForm';
+import { useMovieContext } from '../../contexts/MovieContext';
 
 
-export const CreateMovie = ({
-    onCreateMovieSubmit
-}) => {
+export const CreateMovie = () => {
 
+    const { onCreateMovieSubmit } = useMovieContext();
     const { values, changeHandler, onSubmit } = useForm({
         title: '',
         subTitle: '',

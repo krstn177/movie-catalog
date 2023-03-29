@@ -12,11 +12,13 @@ import { reviewServiceFactory } from '../../services/reviewService';
 
 import { useService } from '../../hooks/useService';
 import { AuthContext } from '../../contexts/AuthContext';
+import { useMovieContext } from '../../contexts/MovieContext';
 
 export const MovieDetails = () => {
     const { userId, username, isAuthenticated } = useContext(AuthContext);
     const { movieId } = useParams();
     
+    const { deleteMovie } = useMovieContext();
     const [movie, setMovie] = useState({});
     const [reviews, setReviews] = useState([]);
     const [hasReviewed, setHasReviewed] = useState(false);
@@ -73,10 +75,17 @@ export const MovieDetails = () => {
     }, 
     onReviewSubmit);
 
-    const onDeleteClick = async () => {
-        await movieService.delete(movie._id);
+    const onDeleteClick = async () => {       
+        // eslint-disable-next-line no-restricted-globals
+        const result = confirm(`Are you sure you want to delete ${movie.title}`);
 
-        // TODO: delete from state       
+        if (result) {
+            await movieService.delete(movie._id);
+
+            deleteMovie(movie._id);
+
+            navigate('/catalog');
+        }
 
         navigate('/catalog');
     };
