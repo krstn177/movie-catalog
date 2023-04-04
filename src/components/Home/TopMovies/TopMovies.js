@@ -16,7 +16,7 @@ export const TopMovies = () => {
     <>{topMovies.length === 0 && 
         <div className="sectionContainer">
             <h1 className='title sectionTitle'>See the latest movies fresh from the cinemas</h1>
-            <Link to={`/register`} className="sectionBtn">Register Now</Link>
+            <h2 className='title sectionTitle'>And review them if you like</h2>
         </div>}
       {
         topMovies.length !== 0 &&

@@ -69,7 +69,7 @@ export const MovieDetails = () => {
         setReviews(state => [...state, result]);
     };
 
-    const { values, changeHandler, onSubmit } = useForm({
+    const { values, changeHandler, onSubmit, formErrors, reviewFormValidate } = useForm({
         rating: 'Excellent',
         description: '' 
     }, 
@@ -156,8 +156,16 @@ export const MovieDetails = () => {
                             <Form.Control name="description" placeholder="......" className="bg-dark" style={{textAlign: 'center', color: '#e1b516'}} as="textarea" rows={4} 
                                 value={values.description}
                                 onChange={changeHandler}
+                                onBlur={reviewFormValidate}
                             />         
                         </Form.Group>
+                        {formErrors.description &&  
+                            <div className="mb-3">
+                            <Form.Text className="text-danger">
+                                {formErrors.description}
+                            </Form.Text>                        
+                            </div>         
+                        }
 
                         <button className="button" type="submit">
                             Submit

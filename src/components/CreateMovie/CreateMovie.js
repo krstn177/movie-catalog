@@ -9,7 +9,7 @@ import { useMovieContext } from '../../contexts/MovieContext';
 export const CreateMovie = () => {
 
     const { onCreateMovieSubmit } = useMovieContext();
-    const { values, changeHandler, onSubmit } = useForm({
+    const { values, changeHandler, onSubmit, formErrors, movieFormValidate  } = useForm({
         title: '',
         subTitle: '',
         Description: '',
@@ -33,40 +33,70 @@ export const CreateMovie = () => {
           <Form.Control name="title" className="bg-dark" style={{textAlign: 'center', color: '#e1b516'}} type="text"
             value={values.title}
             onChange={changeHandler}
+            onBlur={movieFormValidate}          
           />         
         </Form.Group>
+        {formErrors.title &&  
+            <div>
+              <Form.Text className="text-danger">
+                {formErrors.title}
+              </Form.Text>                        
+            </div>         
+        }
 
         <Form.Group className="mb-3" controlId="subTitle">
           <Form.Label className="h2">Sub Title</Form.Label>
           <Form.Control name="subTitle" className="bg-dark" style={{textAlign: 'center', color: '#e1b516'}} type="text"
             value={values.subTitle}
             onChange={changeHandler}
+            onBlur={movieFormValidate}          
           />         
         </Form.Group>
-
+        {formErrors.subTitle &&  
+            <div>
+              <Form.Text className="text-danger">
+                {formErrors.subTitle}
+              </Form.Text>                        
+            </div>         
+        }
 
         <Form.Group className="mb-3" controlId="Description">
           <Form.Label className="h2">Description</Form.Label>
           <Form.Control name="Description" className="bg-dark" style={{textAlign: 'center', color: '#e1b516'}} as="textarea" rows={4} 
             value={values.Description}
             onChange={changeHandler}
+            onBlur={movieFormValidate}          
           />         
         </Form.Group>
-
+        {formErrors.Description &&  
+            <div>
+              <Form.Text className="text-danger">
+                {formErrors.Description}
+              </Form.Text>                        
+            </div>         
+        }
 
         <Form.Group className="mb-3" controlId="Director">
           <Form.Label className="h2">Director</Form.Label>
           <Form.Control name="Director" className="bg-dark" style={{textAlign: 'center', color: '#e1b516'}} type="text"
             value={values.Director}
             onChange={changeHandler}
+            onBlur={movieFormValidate}          
           />         
         </Form.Group>
+        {formErrors.Director &&  
+            <div>
+              <Form.Text className="text-danger">
+                {formErrors.Director}
+              </Form.Text>                        
+            </div>         
+        }
 
         <Form.Group className="mb-3" controlId="Genre">
           <Form.Label className="h2">Genre</Form.Label>
           <Form.Select aria-label='Select a genre' name="Genre" className="bg-dark" style={{textAlign: 'center', color: '#e1b516'}} 
             value={values.Genre}
-            onChange={changeHandler}
+            onChange={changeHandler}         
           >   
               <option value="Action">Action</option>
               <option value="Drama">Drama</option>
@@ -85,8 +115,16 @@ export const CreateMovie = () => {
           <Form.Control name="Cast" className="bg-dark" style={{textAlign: 'center', color: '#e1b516'}} type="text"
             value={values.Cast}
             onChange={changeHandler}
+            onBlur={movieFormValidate}          
           />         
         </Form.Group>
+        {formErrors.Cast &&  
+            <div>
+              <Form.Text className="text-danger">
+                {formErrors.Cast}
+              </Form.Text>                        
+            </div>         
+        }
 
         <Form.Group className="mb-3" controlId="Duration">
           <Form.Label className="h2">Duration</Form.Label>
@@ -111,28 +149,52 @@ export const CreateMovie = () => {
             style={{textAlign: 'center', color: '#e1b516'}} 
             type="number" min="1900" max="2050" step="1"
             value={values.Year}
-            onChange={changeHandler}          
+            onChange={changeHandler}
+            onBlur={movieFormValidate}           
           />         
         </Form.Group>
+        {formErrors.Year &&  
+            <div>
+              <Form.Text className="text-danger">
+                {formErrors.Year}
+              </Form.Text>                        
+            </div>         
+        }
 
         <Form.Group className="mb-3" controlId="ImageUrl">
           <Form.Label className="h2">Image URL</Form.Label>
           <Form.Control name="ImageUrl" className="bg-dark" style={{textAlign: 'center', color: '#e1b516'}} type="text" 
           value={values.ImageUrl}
           onChange={changeHandler}
+          onBlur={movieFormValidate}          
           />         
         </Form.Group>
+        {formErrors.ImageUrl &&  
+            <div>
+              <Form.Text className="text-danger">
+                {formErrors.ImageUrl}
+              </Form.Text>                        
+            </div>         
+          }
 
         <Form.Group className="mb-3" controlId="TrailerUrl">
           <Form.Label className="h2">Trailer URL</Form.Label>
           <Form.Control name="TrailerUrl" className="bg-dark" style={{textAlign: 'center', color: '#e1b516'}} type="text"
             value={values.TrailerUrl}
             onChange={changeHandler}
+            onBlur={movieFormValidate}          
           />  
           <Form.Text className="text-muted">
             Please paste the YouTube link of the trailer
           </Form.Text>       
         </Form.Group>
+        {formErrors.TrailerUrl &&  
+            <div>
+              <Form.Text className="text-danger">
+                {formErrors.TrailerUrl}
+              </Form.Text>                        
+            </div>         
+        }
 
         <button className={styles.createSubmitBtn} type="submit">
           Submit
