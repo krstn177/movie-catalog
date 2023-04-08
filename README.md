@@ -1,3 +1,28 @@
+# MoviesHub Documentation
+
+## Home page
+The home page consists of a hero header with a link to the catalog and (depending on whether there are movies in the catalog) a carousel with the latest three movies in the catalog. Each element of the carousel contains the title, sub title of the given movie and a "View" button which takes you to the details page of the movie when clicked.
+
+## Login page
+The login page provides a form with an email and password input fields for a user to login to their account.
+
+## Register page
+The register page provides a form for creating an account. An account has an email address, username and a password.
+## Catalog page
+The catalog contains a list of all the movies that are registered on the website. Each movie is displayed with a card that contains the title, sub title and a "View" button which takes you to the details page of the movie. If there are no movies a proper message will be displayed.
+
+## My movies page
+Similar in structure with the catalog page, the my movies page will display the list of movies created by the currently logged in user. The page is available only for logged in users.
+
+## Register a movie page
+The page contains the form for registering a new movie. There are input fields for: Title, Sub title, Description, Director, Genre, Cast, Duration, Year, Image Url and Trailer Url. The provided image and trailer links from the user will display the appropriate media in the movie details.
+
+## Movie details page
+The movie details page displays the whole information for the given movie. Next to the text information is the movie poster. Underneath this information section is the trailer of the movie which is an embedded YouTube video. Underneath that is the form for adding a review. The review consists of a rating from "Very bad" to "Excellent" and a description. If there are reviews of the movie they will be displayed underneath the "Add review" form. A user is permitted only one review per movie. When a review is submitted the form stops being rendered.
+
+### Movie details for owner
+If the logged in user is owner of a given movie in the details page of this movie will be displayed two buttons for edit and delete actions. When the edit button is clicked a form identical to the one for registering the movie will appear, but with the initial values of the chosen movie. The owner is free to change every property of the movie. When the delete button is clicked a confirmation window will appear to ask whether the user wants to proceed with the deletion of the movie. When confirmed the movie is deleted from the catalog.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

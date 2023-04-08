@@ -1,4 +1,4 @@
-import { createContext, useContext } from 'react';
+import { createContext, useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 
@@ -10,6 +10,7 @@ export const AuthProvider = ({
     children,
 }) => {
     const [auth, setAuth] = useLocalStorage('auth', {});
+    const [loginError, setLoginError] = useState('');
     const navigate = useNavigate();
 
     const authService = authServiceFactory(auth.accessToken)
@@ -18,10 +19,12 @@ export const AuthProvider = ({
         try {
             const result = await authService.login(data);
 
+            setLoginError('');
             setAuth(result);
 
             navigate('/catalog');
         } catch (error) {
+            setLoginError('Invalid email or password');
             console.log('There is a problem');
         }
     };
@@ -53,6 +56,7 @@ export const AuthProvider = ({
         onLoginSubmit,
         onRegisterSubmit,
         onLogout,
+        loginError,
         userId: auth._id,
         token: auth.accessToken,
         userEmail: auth.email,

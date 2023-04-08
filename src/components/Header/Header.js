@@ -14,7 +14,7 @@ export const Header = () => {
     <Navbar collapseOnSelect expand="lg" className="border-bottom border-light nav-bar bg-dark">
       <Container href="#">
         <Nav.Link>
-          <Link className='navBrand' to="/">Movies</Link>
+          <Link className='navBrand' to="/">MoviesHub</Link>
         </Nav.Link>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">

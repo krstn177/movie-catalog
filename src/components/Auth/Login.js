@@ -8,7 +8,7 @@ import Form from 'react-bootstrap/Form';
 import './Auth.css';
 
 export const Login = () => {
-  const {onLoginSubmit} = useContext(AuthContext);
+  const {onLoginSubmit, loginError} = useContext(AuthContext);
   const { values, changeHandler, onSubmit } = useForm({
     email: '',
     password: '',
@@ -35,6 +35,10 @@ export const Login = () => {
             value={values.password}
             onChange={changeHandler}
           />         
+          {loginError && 
+          <Form.Text className="text-danger">
+              <p>{loginError}</p>
+          </Form.Text>}
           <Form.Text className="text-muted">
               <span>If you don't have a profile click <Link to="/register">here</Link></span>
           </Form.Text>
